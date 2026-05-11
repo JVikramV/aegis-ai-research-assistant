@@ -7,9 +7,18 @@ import fitz
 # EMBEDDING MODEL
 # =========================
 
-model = SentenceTransformer(
-    "all-MiniLM-L6-v2"
-)
+model = None
+def get_model():
+
+    global model
+
+    if model is None:
+
+        model = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
+
+    return model
 
 # =========================
 # GLOBAL STORAGE
@@ -109,7 +118,7 @@ def add_document(pages):
         return
 
     # Create embeddings
-    embeddings = model.encode(
+    embeddings = get_model.encode(
         new_chunks,
         show_progress_bar=True
     )
@@ -156,7 +165,7 @@ def search(query, k=12):
         }
 
     # Embed query
-    query_embedding = model.encode(
+    query_embedding = get_model.encode(
         [query]
     )
 
