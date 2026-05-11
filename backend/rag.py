@@ -1,24 +1,4 @@
-from sentence_transformers import SentenceTransformer
-import faiss
-import numpy as np
 import fitz
-
-# =========================
-# EMBEDDING MODEL
-# =========================
-
-model = None
-def get_model():
-
-    global model
-
-    if model is None:
-
-        model = SentenceTransformer(
-            "all-MiniLM-L6-v2"
-        )
-
-    return model
 
 # =========================
 # GLOBAL STORAGE
@@ -27,6 +7,26 @@ def get_model():
 documents = []
 
 index = None
+
+model = None
+
+# =========================
+# LOAD MODEL LAZILY
+# =========================
+
+def get_model():
+
+    global model
+
+    if model is None:
+
+        from sentence_transformers import SentenceTransformer
+
+        model = SentenceTransformer(
+            "all-MiniLM-L6-v2"
+        )
+
+    return model
 
 # =========================
 # LOAD PDF
@@ -89,6 +89,9 @@ def chunk_text(text, chunk_size=1200):
 
 def add_document(pages):
 
+    import faiss
+    import numpy as np
+
     global documents
     global index
 
@@ -118,7 +121,7 @@ def add_document(pages):
         return
 
     # Create embeddings
-    embeddings = get_model.encode(
+    embeddings = get_model().encode(
         new_chunks,
         show_progress_bar=True
     )
@@ -150,6 +153,8 @@ def add_document(pages):
 
 def search(query, k=12):
 
+    import numpy as np
+
     global index
     global documents
 
@@ -165,7 +170,7 @@ def search(query, k=12):
         }
 
     # Embed query
-    query_embedding = get_model.encode(
+    query_embedding = get_model().encode(
         [query]
     )
 
