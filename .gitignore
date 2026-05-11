@@ -1,0 +1,17 @@
+# Node
+node_modules
+dist
+
+# Python
+venv
+__pycache__
+*.pyc
+
+# Env
+.env
+
+# Uploads
+uploads/
+
+# Mac
+.DS_Store
