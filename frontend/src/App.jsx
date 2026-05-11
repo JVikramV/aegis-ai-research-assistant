@@ -314,7 +314,7 @@ function App() {
     try {
 
       const response = await fetch(
-        "http://127.0.0.1:8000/chat",
+        "https://aegis-ai-research-assistant.onrender.com/chat",
         {
           method: "POST",
 
@@ -432,7 +432,7 @@ function App() {
 
       const res =
         await axios.post(
-          "http://127.0.0.1:8000/upload",
+          "https://aegis-ai-research-assistant.onrender.com/upload",
           formData
         );
 
