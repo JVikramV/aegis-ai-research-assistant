@@ -10,8 +10,10 @@ from rag import load_pdf, add_document, search
 from fastapi.staticfiles import StaticFiles
 
 import shutil
+print("MAIN FILE STARTED")
 
 app = FastAPI()
+print("FASTAPI STARTING")
 app.mount(
     "/uploads",
     StaticFiles(directory="uploads"),
