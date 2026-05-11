@@ -8,10 +8,10 @@ from llm import generate_response
 import rag
 from rag import load_pdf, add_document, search
 from fastapi.staticfiles import StaticFiles
-
+import os
 import shutil
 print("MAIN FILE STARTED")
-
+os.makedirs("uploads", exist_ok=True)
 app = FastAPI()
 print("FASTAPI STARTING")
 app.mount(
